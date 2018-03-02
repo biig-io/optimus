@@ -1,11 +1,11 @@
 {
-    "name": "biig-io/optimus",
+    "name": "biig/optimus",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Valentin Faugeroux",
-            "email": "faugerouxvalentin@gmail.com"
+            "name": "BiiG",
+            "homepage": "https://www.biig.fr"
         }
     ],
     "autoload": {
@@ -20,12 +20,12 @@
     },
     "require": {
         "php": "^5.6|>=7.0.8",
-        "symfony/property-access": "^3.4",
+        "symfony/property-access": "^3.4"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
     },
     "suggest": {
-        "symfony/yaml": "^3.4"
+        "symfony/yaml": "To parse your YAML files"
     }
 }
