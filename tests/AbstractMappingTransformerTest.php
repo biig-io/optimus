@@ -122,7 +122,7 @@ class AbstractMappingTransformerTest extends TestCase
 
 class ProxyDummyTransformer extends AbstractMappingTransformer
 {
-    protected function transform(array $data) { return null; }
+    public function transform(array $data) { return null; }
 
     public function transformFromMapping(array $mapping, array $data)
     {

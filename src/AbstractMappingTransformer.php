@@ -26,7 +26,7 @@ abstract class AbstractMappingTransformer
      * @param array $data
      * @return mixed
      */
-    abstract protected function transform(array $data);
+    abstract public function transform(array $data);
 
     /**
      * Generate output array by given mapping & input array
