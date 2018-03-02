@@ -1,9 +1,9 @@
 <?php
 
-namespace Valouleloup\ArrayMapping\Tests;
+namespace Biig\Optimus\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Valouleloup\ArrayMapping\AbstractMappingTransformer;
+use Biig\Optimus\AbstractMappingTransformer;
 
 class AbstractMappingTransformerTest extends TestCase
 {

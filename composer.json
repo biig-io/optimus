@@ -1,5 +1,5 @@
 {
-    "name": "valouleloup/array-mapping",
+    "name": "biig-io/optimus",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,19 +10,22 @@
     ],
     "autoload": {
         "psr-4": {
-            "Valouleloup\\ArrayMapping\\": "src/"
+            "Biig\\Optimus\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Valouleloup\\ArrayMapping\\Tests\\": "tests/"
+            "Biig\\Optimus\\Tests\\": "tests/"
         }
     },
     "require": {
         "php": "^5.6|>=7.0.8",
-        "symfony/property-access": "^3.4"
+        "symfony/property-access": "^3.4",
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
+    },
+    "suggest": {
+        "symfony/yaml": "^3.4"
     }
 }

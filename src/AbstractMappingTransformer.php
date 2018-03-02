@@ -1,6 +1,6 @@
 <?php
 
-namespace Valouleloup\ArrayMapping;
+namespace Biig\Optimus;
 
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
