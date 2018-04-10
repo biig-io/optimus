@@ -9,7 +9,7 @@ The goal of the library is to map two arrays (in and out) with an YAML file conf
 
 You can install this library using composer with the following command: 
 ```bash
-composer require biig-io/optimus
+composer require biig/optimus
 ```
 
 
