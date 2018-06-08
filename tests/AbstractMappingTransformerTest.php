@@ -2,6 +2,7 @@
 
 namespace Biig\Optimus\Tests;
 
+use Biig\Optimus\Exception\OptimusException;
 use PHPUnit\Framework\TestCase;
 use Biig\Optimus\AbstractMappingTransformer;
 
@@ -117,6 +118,24 @@ class AbstractMappingTransformerTest extends TestCase
         $result = $transformer->transformFromMapping($mapping, $data);
 
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @expectedException  \Biig\Optimus\Exception\OptimusException
+     * @expectedExceptionMessage Field foo required.
+     */
+    public function testItThrowAnException()
+    {
+        $mapping = [
+            'node' => [
+                'from' => 'foo',
+                'to' => 'bar',
+                'required' => true,
+            ],
+        ];
+
+        $transformer = new ProxyDummyTransformer();
+        $transformer->transformFromMapping($mapping, []);
     }
 }
 

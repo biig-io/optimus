@@ -2,6 +2,7 @@
 
 namespace Biig\Optimus;
 
+use Biig\Optimus\Exception\OptimusException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -34,7 +35,7 @@ abstract class AbstractMappingTransformer
      * @param array $mapping The mapping to use to transform input array
      * @param array $data The input array
      * @return array The output array
-     * @throws \Exception
+     * @throws OptimusException
      */
     protected function transformFromMapping(array $mapping, array $data)
     {
@@ -46,9 +47,9 @@ abstract class AbstractMappingTransformer
                 // Get our node value
                 $nodeValue = $this->getNodeValue($node, $data);
 
-                // If we didn't get value but field was required, throw Exception
+                // If we didn't get value but field was required, throw OptimusException
                 if (isset($node['required']) && true === $node['required'] && null === $nodeValue) {
-                    throw new \Exception('Field ' . $node['from'] . ' required.');
+                    throw new OptimusException('Field ' . $node['from'] . ' required.');
                 }
 
                 if (isset($node['dependencies'])) {
@@ -61,7 +62,7 @@ abstract class AbstractMappingTransformer
                     }
 
                     if ($dependenciesExist && null === $nodeValue) {
-                        throw new \Exception('Field ' . $node['from'] . ' required if dependencies true.');
+                        throw new OptimusException('Field ' . $node['from'] . ' required if dependencies true.');
                     }
                 }
 
