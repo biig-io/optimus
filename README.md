@@ -4,6 +4,9 @@ The goal of the library is to map two arrays (in and out) with an YAML file conf
 
 - **_This library respects [SemVer](https://semver.org/)._**
 
+Maintainers:
+- [@Awkan](https://github.com/Awkan)
+- [@Valouleloup](https://github.com/Valouleloup)
 
 ## Install
 
