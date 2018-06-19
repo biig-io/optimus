@@ -55,9 +55,9 @@ class MyTransformer extends AbstractMappingTransformer
 ```
 The ` $result ` variable now contains the new array.
 
-### The input data
+### Configuration
 
-Assuming you got the PHP array `$inputArray`
+Assuming you got the PHP array `$inputArray` (input data)
 ```php
 $inputArray = [
     'user' => [
@@ -69,9 +69,7 @@ $inputArray = [
 ];
 ```
 
-### YAML Mapping
-
-Consider you want to transform it to the following array
+And considering you want to transform it to the following array (expected output)
 ```php
 $outputArray = [
     'title' => 'A title',
@@ -102,7 +100,7 @@ transformer:
 ``` 
 
 
-## Available mapping
+## Available mapping options
 
 You can declare your node 
 * `from` : string, the key path of the `input` array
@@ -153,8 +151,8 @@ required: true # Default to false
 ```
 
 #### Use a default value
-Actually, if `from` value don't exist in your input array, the `to` field don't appear in the output array.    
-If you want this field to got a default value, you can add `default` key.
+Actually, if `from` value doesn't exist in your input array, the `to` field doesn't appear in the output array.    
+If you want this field to get a default value, you can add `default` key.
 ```yaml
 from: a
 to: b
@@ -168,3 +166,27 @@ default:
     function:
         name: getB # You can also use a function to define default value
 ```
+
+#### Add a condition
+
+If you want to transform a field A only if a field B exists.
+
+```yaml
+from: a
+to: foo
+condition:
+    exists: b
+``` 
+
+You can put multiple fields in your condition :
+
+```yaml
+from: a
+to: foo
+condition:
+    exists:
+        - b
+        - c
+``` 
+
+
