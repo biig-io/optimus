@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.1] - 2018-06-19
+### Added
+- Add array condition
+- Add documentation
+
 ## [0.2] - 2018-06-12
 ### Added
 - Add an `OptimusException` class
