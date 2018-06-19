@@ -91,9 +91,19 @@ abstract class AbstractMappingTransformer
         }
 
         // Only transform node if field exists in array to parse
-        if (isset($node['condition']['exists'])
-            && \is_null($this->getValue($data, $node['condition']['exists']))) {
-            return false;
+        if (isset($node['condition']['exists'])) {
+            if (is_array($node['condition']['exists'])) {
+                foreach ($node['condition']['exists'] as $condition) {
+                    if (\is_null($this->getValue($data, $condition))) {
+                        return false;
+                    }
+                }
+            }
+
+            if (\is_scalar($node['condition']['exists'])
+                && \is_null($this->getValue($data, $node['condition']['exists']))) {
+                return false;
+            }
         }
 
         return true;
