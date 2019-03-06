@@ -2,6 +2,7 @@
 
 namespace Biig\Optimus;
 
+use Biig\Optimus\Exception\JsonOptimusException;
 use Biig\Optimus\Exception\OptimusException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -40,8 +41,18 @@ abstract class AbstractMappingTransformer
     protected function transformFromMapping(array $mapping, array $data)
     {
         $result = [];
+        $errors = [];
+        $returnAllErrors = false;
 
-        foreach ($mapping as $node) {
+        if (array_key_exists('parameters', $mapping) && array_key_exists('show_all_errors', $mapping['parameters'])) {
+            $returnAllErrors = boolval($mapping['parameters']['show_all_errors']);
+        }
+
+        if (!array_key_exists('mapping', $mapping)) {
+            throw new OptimusException('mapping key is missing.');
+        }
+
+        foreach ($mapping['mapping'] as $node) {
             // Only transform current node if no condition prevent it
             if ($this->areConditionsValidated($node, $data)) {
                 // Get our node value
@@ -49,7 +60,13 @@ abstract class AbstractMappingTransformer
 
                 // If we didn't get value but field was required, throw OptimusException
                 if (isset($node['required']) && true === $node['required'] && null === $nodeValue) {
-                    throw new OptimusException('Field ' . $node['from'] . ' required.');
+                    $message = 'Field ' . $node['from'] . ' required.';
+                    if (!$returnAllErrors) {
+                        throw new OptimusException($message);
+                    } else {
+                        $errors[] = $message;
+                        continue;
+                    }
                 }
 
                 if (isset($node['dependencies'])) {
@@ -62,7 +79,13 @@ abstract class AbstractMappingTransformer
                     }
 
                     if ($dependenciesExist && null === $nodeValue) {
-                        throw new OptimusException('Field ' . $node['from'] . ' required if dependencies true.');
+                        $message = 'Field ' . $node['from'] . ' required if dependencies true.';
+                        if (!$returnAllErrors) {
+                            throw new OptimusException($message);
+                        } else {
+                            $errors[] = $message;
+                            continue;
+                        }
                     }
                 }
 
@@ -71,6 +94,10 @@ abstract class AbstractMappingTransformer
                     $this->accessor->setValue($result, $this->convertToBrackets($node['to']), $nodeValue);
                 }
             }
+        }
+
+        if ($returnAllErrors && !empty($errors)) {
+            throw new JsonOptimusException($errors);
         }
 
         return $result;

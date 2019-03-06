@@ -11,10 +11,12 @@ class AbstractMappingTransformerTest extends TestCase
     public function testTransformFromTo()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo',
-                'to' => 'bar',
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo',
+                    'to' => 'bar',
+                ],
+            ]
         ];
         $data = [
             'foo' => 'baz',
@@ -32,10 +34,12 @@ class AbstractMappingTransformerTest extends TestCase
     public function testTransformFromToWithDepth()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo1.foo2',
-                'to' => 'bar1.bar2.bar3',
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo1.foo2',
+                    'to' => 'bar1.bar2.bar3',
+                ],
+            ]
         ];
         $data = [
             'foo1' => ['foo2' => 'foo']
@@ -53,13 +57,15 @@ class AbstractMappingTransformerTest extends TestCase
     public function testTransformToFunction()
     {
         $mapping = [
-            'node' => [
-                'to' => 'bar',
-                'function' => [
-                    'name' => 'getString',
-                    'params' => ['foo']
-                ]
-            ],
+            'mapping' => [
+                'node' => [
+                    'to' => 'bar',
+                    'function' => [
+                        'name' => 'getString',
+                        'params' => ['foo']
+                    ]
+                ],
+            ]
         ];
         $data = [
             'foo' => 'baz',
@@ -77,11 +83,13 @@ class AbstractMappingTransformerTest extends TestCase
     public function testTransformFromToDefaultConstant()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo',
-                'to' => 'bar',
-                'default' => 'default',
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo',
+                    'to' => 'bar',
+                    'default' => 'default',
+                ],
+            ]
         ];
         $data = [];
         $expected = [
@@ -97,15 +105,17 @@ class AbstractMappingTransformerTest extends TestCase
     public function testTransformFromToDefaultFunction()
     {
         $mapping = [
-            'node' => [
-                'to' => 'bar',
-                'default' => [
-                    'function' => [
-                        'name' => 'getString',
-                        'params' => ['foo']
+            'mapping' => [
+                'node' => [
+                    'to' => 'bar',
+                    'default' => [
+                        'function' => [
+                            'name' => 'getString',
+                            'params' => ['foo']
+                        ],
                     ],
                 ],
-            ],
+            ]
         ];
         $data = [
             'foo' => 'I am a string'
@@ -127,11 +137,13 @@ class AbstractMappingTransformerTest extends TestCase
     public function testItThrowAnException()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo',
-                'to' => 'bar',
-                'required' => true,
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo',
+                    'to' => 'bar',
+                    'required' => true,
+                ],
+            ]
         ];
 
         $transformer = new ProxyDummyTransformer();
@@ -141,13 +153,15 @@ class AbstractMappingTransformerTest extends TestCase
     public function testExistsCondition()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo1.foo2',
-                'to' => 'bar1.bar2.bar3',
-                'condition' => [
-                    'exists' => 'baz'
-                ]
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo1.foo2',
+                    'to' => 'bar1.bar2.bar3',
+                    'condition' => [
+                        'exists' => 'baz'
+                    ]
+                ],
+            ]
         ];
 
         $data = [
@@ -168,13 +182,15 @@ class AbstractMappingTransformerTest extends TestCase
     public function testNotValidatedCondition()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo1.foo2',
-                'to' => 'bar1.bar2.bar3',
-                'condition' => [
-                    'exists' => 'baz'
-                ]
-            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo1.foo2',
+                    'to' => 'bar1.bar2.bar3',
+                    'condition' => [
+                        'exists' => 'baz'
+                    ]
+                ],
+            ]
         ];
 
         $data = [
@@ -192,16 +208,18 @@ class AbstractMappingTransformerTest extends TestCase
     public function testArrayCondition()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo1.foo2',
-                'to' => 'bar1.bar2.bar3',
-                'condition' => [
-                    'exists' => [
-                        'baz',
-                        'boz'
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo1.foo2',
+                    'to' => 'bar1.bar2.bar3',
+                    'condition' => [
+                        'exists' => [
+                            'baz',
+                            'boz'
+                        ]
                     ]
-                ]
-            ],
+                ],
+            ]
         ];
 
         $data = [
@@ -223,16 +241,18 @@ class AbstractMappingTransformerTest extends TestCase
     public function testNotValidatedArrayCondition()
     {
         $mapping = [
-            'node' => [
-                'from' => 'foo1.foo2',
-                'to' => 'bar1.bar2.bar3',
-                'condition' => [
-                    'exists' => [
-                        'baz',
-                        'boz'
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo1.foo2',
+                    'to' => 'bar1.bar2.bar3',
+                    'condition' => [
+                        'exists' => [
+                            'baz',
+                            'boz'
+                        ]
                     ]
-                ]
-            ],
+                ],
+            ]
         ];
 
         $data = [
@@ -246,6 +266,52 @@ class AbstractMappingTransformerTest extends TestCase
         $result = $transformer->transformFromMapping($mapping, $data);
 
         $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @expectedException  \Biig\Optimus\Exception\JsonOptimusException
+     * @expectedExceptionMessage ["Field foo required.","Field bar required."]
+     */
+    public function testItThrowAnJsonOptimusException()
+    {
+        $mapping = [
+            'parameters' => [
+                'show_all_errors' => true
+            ],
+            'mapping' => [
+                'node' => [
+                    'from' => 'foo',
+                    'to' => 'bar',
+                    'required' => true,
+                ],
+                'node2' => [
+                    'from' => 'bar',
+                    'to' => 'foo',
+                    'required' => true,
+                ],
+            ]
+        ];
+
+        $transformer = new ProxyDummyTransformer();
+        $transformer->transformFromMapping($mapping, []);
+    }
+
+    /**
+     * @expectedException  \Biig\Optimus\Exception\OptimusException
+     * @expectedExceptionMessage mapping key is missing.
+     */
+    public function testItThrowAnOptimusExceptionOnMissingMappingKey()
+    {
+        $mapping = [
+            'node' => [
+                'from' => 'foo',
+                'to' => 'bar',
+                'required' => true,
+            ]
+        ];
+
+        $transformer = new ProxyDummyTransformer();
+        $transformer->transformFromMapping($mapping, []);
     }
 }
 

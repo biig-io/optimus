@@ -189,4 +189,25 @@ condition:
         - c
 ``` 
 
+#### Get all errors mapping at a time
+
+If you want to return all errors at a time you can set the next parameters in config
+
+```yaml
+# mapping.yaml
+transformer:
+    parameters:
+      show_all_errors: true
+    mapping:
+        title:
+            from: 'title'
+            to: 'title'
+        participants_1_civility:
+            from: 'user.civility'
+            to: 'participants.0.civility'
+        participants_1_name:
+            from: 'user.lastname'
+            to: 'participants.0.name'
+``` 
+
 
