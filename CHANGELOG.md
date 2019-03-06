@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
+
+## [0.2.3] - 2019-03-06
+### Added
+- Add `show_all_errors` parameters
+- Add a `JsonOptimusException` class
+
+## [0.2.2] - 2018-11-29
+### Added
 - Make package compatible with Symfony 4
 
 ## [0.2.1] - 2018-06-19
